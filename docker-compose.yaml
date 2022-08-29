@@ -50,7 +50,7 @@ services:
       - stock-network
 
   productor:
-    image: aleantivero/stock-productor:0.0.1-${QUARKUS_MODE:-jvm}
+    image: aleantivero/stock-productor:0.0.2-${QUARKUS_MODE:-jvm}
     build:
       context: productor
       dockerfile: src/main/docker/Dockerfile.${QUARKUS_MODE:-jvm}
@@ -62,9 +62,11 @@ services:
       - "8080:8080"
     networks:
       - stock-network
+    labels:
+      kompose.service.type: LoadBalancer
 
   procesador:
-    image: aleantivero/stock-procesador:0.0.1-${QUARKUS_MODE:-jvm}
+    image: aleantivero/stock-procesador:0.0.2-${QUARKUS_MODE:-jvm}
     build:
       context: procesador
       dockerfile: src/main/docker/Dockerfile.${QUARKUS_MODE:-jvm}
@@ -79,6 +81,8 @@ services:
       - "8081:8081"
     networks:
       - stock-network
+    labels:
+      kompose.service.type: LoadBalancer
 
 networks:
   stock-network:
